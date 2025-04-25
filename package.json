@@ -1,0 +1,13 @@
+{
+  "name": "task-buddy",
+  "private":true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "client:dev:start":"yarn workspace client start:dev",
+    "build:client": "yarn workspace client build",
+    "server:dev:start":"yarn workspace server start:dev"
+  }
+}
