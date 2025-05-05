@@ -18,7 +18,7 @@ export const registerUser = async (req: Request, res: Response) => {
 
     const createdUser = await authService.registerUser(username, email, password);
     
-    successResponseHandler(res, 201, "User created successfully", createdUser);
+    successResponseHandler(res, 201, "User created successfully", {id:createdUser?._id});
 };
 
 export const loginUser = async (req: Request, res: Response) => {

@@ -99,6 +99,7 @@ export const getUserTodos = async (req: Request, res: Response) => {
 // controller to delete todos of particular user : This manage multi delete
 export const deleteTodos = async (req:Request,res:Response) => {
     try {
+        console.log(req.body,"body")
         const {todoIds} = req.body;
         const userId = req?.user?._id;
         if(!userId) {
@@ -159,10 +160,33 @@ export const updateTodo = async (req: Request, res: Response) => {
             res,
             200,
             "Todo updated successfully",
-            {}
+            {
+                id:todoId
+            }
         );
 
     } catch (error) {
         throw error;
     }
 };
+
+export const getSingleTodo = async (req:Request,res:Response) => {
+    try {
+        const {id} = req.params;
+        const userId = req?.user?._id;
+        if(!id){
+            throw new CustomError(400,"task id can not be empty!")
+        }
+        console.log(req.user,"user from controller")
+        const todo = await todoService.getSingleTodo(id,userId);
+
+        successResponseHandler(
+            res,
+            200,
+            "Task fetched successfully.",
+            todo
+        )
+    } catch (error) {
+        throw error
+    }
+}

@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
 
 export enum TodoStatus {
-    PENDING = "pending",
-    COMPLETED = "completed"
+    TODO='todo',
+    PENDING = "inprogress",
+    COMPLETED = "done"
 }
 
 export interface ITodo extends Document {

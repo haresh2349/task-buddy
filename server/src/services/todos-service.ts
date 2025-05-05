@@ -2,6 +2,7 @@ import { Types } from "mongoose";
 import { TodoStatus } from "../types/todos-types";
 import { TodoModel } from "../models/todos-model";
 import { CustomError } from "../errors/custom-error";
+import UserModel from "../models/user-model";
 
 interface CreateTodoProps {
     title: string;
@@ -180,3 +181,24 @@ export const updateTodoItem = async (params: UpdateTodoParams) => {
         throw new CustomError(500, "Failed to update todo");
     }
 };
+
+// service to get a single todoItem
+
+export const getSingleTodo = async (todoId:string,userId:string) => {
+    try {
+        const user = await UserModel.findById(userId);
+        console.log(user,"user task")
+        if(!user){
+            throw new CustomError(401,"UnAuthorized request!")
+        }
+
+        const todo = await TodoModel.findOne({_id:todoId,user:userId});
+        if(!todo){
+            throw new CustomError(400,'Invalid task id!')
+        }
+
+        return todo
+    } catch (error) {
+        throw error
+    }
+}
