@@ -1,0 +1,32 @@
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/app.hooks"
+import { BoardItem } from "./BoardItem"
+import { GroupedTodos, Todo } from "../../types/todos-types";
+import { handlegetGroupedTodos, handleGetTodos } from "./managers/todos-manager";
+import {BounceLoader} from "react-spinners"
+
+export const TodosBoard = () => {
+    const dispatch = useAppDispatch()
+    const {todos,fetchTodosLoading,paginationDetails} = useAppSelector(store => store.todos);
+    const [groupedTodos,setGroupedTodos] = useState<GroupedTodos>({todo:[],inprogress:[],done:[]})
+
+    useEffect(() => {
+        handleGetTodos({dispatch})
+    },[])   
+
+    useEffect(() => {
+        setGroupedTodos(handlegetGroupedTodos(todos))
+    },[todos])
+    console.log(groupedTodos,todos,"groupedTodos")
+    return <div className="flex flex-col md:flex-row gap-2 p-2 justify-between h-[80%]">
+        {
+            fetchTodosLoading ? <div className="w-[100%] h-[100%] flex justify-center items-center">
+                <BounceLoader />
+            </div> : <>
+                <BoardItem status="To-Do" todos={groupedTodos.todo} statusFlagBg={"#FAC3FF"}/>
+                <BoardItem status="In-Progress" todos={groupedTodos.inprogress} statusFlagBg={"#85D9F1"}/>
+                <BoardItem status="Done" todos={groupedTodos.done} statusFlagBg={"#A2D6A0"}/>
+            </>
+        }
+    </div>
+}
