@@ -3,4 +3,6 @@ server/node_modules
 client/dist
 server/dist
 node_modules
+client/.env
+server/.env
 .env

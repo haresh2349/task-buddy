@@ -1,5 +1,7 @@
 import axios from "axios";
 import { HandleApiFailureProps } from "../types/common-types";
+import { activateSnackbar } from "../store/slices/common-slice";
+import { updateAuthenticationStatus } from "../store/slices/auth-slice";
 
 export const getToken = () => {
     return localStorage.getItem('accessToken') || ''
@@ -9,14 +11,16 @@ export const handleApiFailure = ({error,defaultMessage,dispatch}:HandleApiFailur
     let errorMessage = "";
     if (axios.isAxiosError(error)){
       errorMessage = error.response?.data?.message;
-    //   dispatch(activateSnackbar({message:error.response?.data?.message,severity:"error"}))
+      // dispatch(activateSnackbar({message:error.response?.data?.message,type:"error"}))
     } else if(error instanceof Error) {
       errorMessage = error?.message
-    //   dispatch(activateSnackbar({message:error?.message || defaultMessage,severity:"error"}))
+      // dispatch(activateSnackbar({message:error?.message || defaultMessage,type:"error"}))
     }
-    if(errorMessage === "Token has expired"){
+    if(errorMessage === "Token expired."){
       localStorage.removeItem('accessToken')
       localStorage.removeItem('loggedInUser');
+      dispatch(activateSnackbar({message:errorMessage || defaultMessage,type:"error"}));
+      dispatch(updateAuthenticationStatus(false))
     }
 }
 

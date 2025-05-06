@@ -12,8 +12,8 @@ export const SnackBar = ({type,message,showTime=5000}:SnackbarProps) => {
     const situationBasedColor = type === 'success' ? 'bg-green' : type === 'error' ? 'red' : '';
     const bgColor = type === 'success' ? 'bg-[#A2D6A0]' : type === 'error' ? 'bg-red-500' : '';
     const borderColor = type === 'success' ? 'border-teal-500' : type === 'error' ? 'border-red-500' : '';
-    const textColor = type === 'success' ? 'text-teal-700' : type === 'error' ? 'text-red-700' : '';
-    const iconColor = type === 'success' ? 'text-teal-700' : type === 'error' ? 'text-red-500' : '';
+    const textColor = type === 'success' ? 'text-teal-700' : type === 'error' ? 'text-white' : '';
+    const iconColor = type === 'success' ? 'text-teal-700' : type === 'error' ? 'text-white' : '';
     useEffect(() => {
         setTimeout(() => {
             dispatch(activateSnackbar({message:null,type:null}))
