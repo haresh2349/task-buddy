@@ -16,7 +16,7 @@ export const Filters = ({setShowTodoModal}:FiltersProps) => {
             </div>
         </div>
         <div>
-            <button onClick={() => setShowTodoModal(true)} className="bg-[#7B1984] px-2 py-1 rounded text-white">Add Task</button>
+            <button onClick={() => setShowTodoModal(true)} className="bg-[#7B1984] px-4 py-1 rounded text-white">Add Task</button>
         </div>
     </div>
 }

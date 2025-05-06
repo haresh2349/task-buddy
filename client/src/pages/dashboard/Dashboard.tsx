@@ -21,7 +21,7 @@ export const Dashboard = () => {
             <Filters setShowTodoModal={setShowTodoModal} />
             <TodosBoard/>
         </div>
-        <CreateTodoModal isOpen={showTodoModal} onClose={() => setShowTodoModal(false)} onSubmit={() => {}}/>
+        {showTodoModal && <CreateTodoModal isOpen={showTodoModal} onClose={() => setShowTodoModal(false)} onSubmit={() => {}}/>}
         {showEditTodoModal && <EditTodoModal isOpen={showEditTodoModal} onClose={closeEditModal} />}
     </>
 }

@@ -15,8 +15,8 @@ export const BoardItem = ({statusFlagBg,todos,status}:BoardItemProps) => {
             todos?.length > 0 ? 
             <div className="flex flex-col gap-4">
                 {
-                    todos?.map(todo => {
-                        return <BoardTaskCard key={todo?._id} todo={todo}/>
+                    todos?.map((todo,index) => {
+                        return <BoardTaskCard key={todo?._id} index={index} todo={todo}/>
                     })
                 }
             </div> : <div className="h-[100%] flex justify-center items-center">

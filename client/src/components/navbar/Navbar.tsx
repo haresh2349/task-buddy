@@ -1,9 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { NoteIcon } from "../../assets/icon-components/NoteIcon"
+import { handleLogout } from "./navbar-manager";
+import { useAppDispatch } from "../../hooks/app.hooks";
 
 export const Navbar = () => {
+    const dispatch = useAppDispatch();
     const [isOpen,setIsOpen] = useState(false);
     const popoverRef = useRef<HTMLDivElement>(null);
+
+
+
     // Close popover when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -11,7 +17,6 @@ export const Navbar = () => {
         setIsOpen(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -33,7 +38,7 @@ export const Navbar = () => {
         
         {isOpen && (
           <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
-            <button
+            {/* <button
               onClick={() => {
                 // navigate('/profile');
                 setIsOpen(false);
@@ -41,9 +46,9 @@ export const Navbar = () => {
               className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             >
               Profile
-            </button>
+            </button> */}
             <button
-            //   onClick={handleLogout}
+              onClick={() => handleLogout(dispatch)}
               className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
             >
               Logout

@@ -10,13 +10,23 @@ import { setSelectedTodoId, toggleEditTodoModal } from '../../store/slices/todos
 import { formatRelativeDate} from '../../common-managers/common-manager';
 import { ConfirmAction } from '../../components/confirm-action/ConfirmAction';
 import { handleDeleteTask } from './managers/todos-manager';
+import { useDrag } from 'react-dnd';
 
-export const BoardTaskCard = ({ todo }:{todo:Todo}) => {
+export const BoardTaskCard = ({ todo,index }:{todo:Todo,index:number}) => {
   const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
   const [showDeleteDailog,setShowDeleteDailog] = useState(false);
   const [deleteLoading,setDeleteLoading] = useState(false);
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'TASK',
+    item: { id: todo._id, originalStatus: status, index},
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
+
   // Close popover when clicking outside
   useEffect(() => {
     const handleClickOutside = (event:MouseEvent) => {
@@ -41,9 +51,15 @@ export const BoardTaskCard = ({ todo }:{todo:Todo}) => {
     <>
       <div className="w-full min-h-[80px] md:min-h-[120px] lg:min-h-[150px] relative p-4 bg-white rounded-lg shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px] hover:shadow-md transition-shadow">
         <div className="flex justify-between items-start">
-          <p className="text-gray-800 font-medium text-sm line-clamp-3 break-words">
-            {todo?.title}
-          </p>
+          {
+            todo?.status === 'done' ? 
+            <s className="text-gray-800 font-medium text-sm line-clamp-3 break-words">
+              {todo?.title}
+            </s> : 
+            <p className="text-gray-800 font-medium text-sm line-clamp-3 break-words">
+              {todo?.title}
+            </p>
+          }
           
           <div className="relative" ref={popoverRef}>
             <button 
