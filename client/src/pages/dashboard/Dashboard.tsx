@@ -12,13 +12,14 @@ export const Dashboard = () => {
     const dispatch = useDispatch();
     const [showTodoModal,setShowTodoModal] = useState(false);
     const {showEditTodoModal} = useAppSelector(store => store.todos);
+    const [activeTab,setActiveTab] = useState<'list' | 'board'>("board")
     const closeEditModal = () => {
         dispatch(toggleEditTodoModal(false))
     }
     return <>
         <div className="w-[100%] h-[100%] flex flex-col justify-between">
             <Navbar/>
-            <Filters setShowTodoModal={setShowTodoModal} />
+            <Filters activeTab={activeTab} setActiveTab={setActiveTab} setShowTodoModal={setShowTodoModal} />
             <TodosBoard/>
         </div>
         {showTodoModal && <CreateTodoModal isOpen={showTodoModal} onClose={() => setShowTodoModal(false)} onSubmit={() => {}}/>}

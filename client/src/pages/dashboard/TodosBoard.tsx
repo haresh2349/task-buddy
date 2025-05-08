@@ -23,9 +23,9 @@ export const TodosBoard = () => {
             fetchTodosLoading ? <div className="w-[100%] h-[100%] flex justify-center items-center">
                 <BounceLoader />
             </div> : <>
-                <BoardItem status="To-Do" todos={groupedTodos.todo} statusFlagBg={"#FAC3FF"}/>
-                <BoardItem status="In-Progress" todos={groupedTodos.inprogress} statusFlagBg={"#85D9F1"}/>
-                <BoardItem status="Done" todos={groupedTodos.done} statusFlagBg={"#A2D6A0"}/>
+                <BoardItem status="todo" todos={groupedTodos.todo} statusFlagBg={"#FAC3FF"}/>
+                <BoardItem status="inprogress" todos={groupedTodos.inprogress} statusFlagBg={"#85D9F1"}/>
+                <BoardItem status="done" todos={groupedTodos.done} statusFlagBg={"#A2D6A0"}/>
             </>
         }
     </div>

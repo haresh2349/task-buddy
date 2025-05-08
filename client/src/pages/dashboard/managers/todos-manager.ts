@@ -117,22 +117,22 @@ export const handlegetGroupedTodos = (todos:Todo[]):{todo:Todo[],inprogress:Todo
 
 
 interface HandleSubmitEditTaskProps {
-    e:FormEvent;
+    e?:FormEvent;
     dispatch:Dispatch;
-    onClose:() => void;
+    onClose?:() => void;
     taskDetails:EditTodo;
     taskId:string;
-    setIsLoading:React.Dispatch<React.SetStateAction<boolean>>
+    setIsLoading?:React.Dispatch<React.SetStateAction<boolean>>
 }
 
 
 
 export const handleSubmitEditTask = async ({e,taskId,taskDetails,dispatch,setIsLoading,onClose}:HandleSubmitEditTaskProps) => {
-    e.preventDefault();
+    e && e.preventDefault();
     const data = await handleUpdateTask({id:taskId,payload:taskDetails,dispatch,setIsLoading})
     if(data?.result?.id){
         dispatch(activateSnackbar({message:data?.message,type:"success"}));
-        onClose();
+        onClose && onClose();
         handleGetTodos({dispatch})
     }
 }   
@@ -141,7 +141,7 @@ interface HandleUpdateTaskProps {
     id:string;
     payload:EditTodo;
     dispatch:Dispatch;
-    setIsLoading:React.Dispatch<React.SetStateAction<boolean>>
+    setIsLoading?:React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface HandleUpdateTaskAPIResponse {
@@ -152,14 +152,14 @@ interface HandleUpdateTaskAPIResponse {
 } 
 export const handleUpdateTask = async ({id,payload,dispatch,setIsLoading}:HandleUpdateTaskProps):Promise<HandleUpdateTaskAPIResponse | void> => {
     try {
-        setIsLoading(true);
+        setIsLoading && setIsLoading(true);
         const response = await api.patch<HandleUpdateTaskAPIResponse>(`${API_END_POINTS.updateTodos}/${id}`,payload);
         const data = response?.data;
         return data;
     } catch (error) {
         handleApiFailure({error,defaultMessage:"Failed to create a task!",dispatch})
     } finally {
-        setIsLoading(false);
+        setIsLoading && setIsLoading(false);
     }
 }
 

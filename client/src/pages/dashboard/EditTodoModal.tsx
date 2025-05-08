@@ -110,7 +110,7 @@ export const EditTodoModal = ({
               <select
                 name="status"
                 onChange={handleChange}
-                value={taskDetails?.status || 'todo'}
+                value={changedDetails?.status ? changedDetails?.status : taskDetails?.status || 'todo'}
                 className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 {STATUS_OPTIONS.map((option) => (

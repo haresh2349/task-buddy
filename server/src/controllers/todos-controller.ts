@@ -39,7 +39,7 @@ export const createTodo = async (req: Request, res: Response) => {
         successResponseHandler(
             res, 
             201, 
-            "Todo created successfully", 
+            "Task created successfully", 
             {
                 id: todo?._id,
             }
@@ -159,7 +159,7 @@ export const updateTodo = async (req: Request, res: Response) => {
         successResponseHandler(
             res,
             200,
-            "Todo updated successfully",
+            "Task updated successfully",
             {
                 id:todoId
             }
