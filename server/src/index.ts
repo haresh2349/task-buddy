@@ -28,3 +28,5 @@ app.listen(PORT,() => {
         console.log('Connection failed!',error)
     }
 })
+
+export default app

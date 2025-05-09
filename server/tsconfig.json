@@ -8,8 +8,7 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "typeRoots": ["./node_modules/@types", "src/types"]
+    "types":["node","jest","./src/types/express"]
   },
-  "include": ["src/**/*"],
-  // "files":["types/express.d.ts"]
+  "include": ["src/types","src", "tests"]
 }

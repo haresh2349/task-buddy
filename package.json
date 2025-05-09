@@ -8,6 +8,7 @@
   "scripts": {
     "client:dev:start":"yarn workspace client dev",
     "build:client": "yarn workspace client build",
-    "server:dev:start":"yarn workspace server start:dev"
+    "server:dev:start":"yarn workspace server start:dev",
+    "server:test":"yarn workspace server test"
   }
 }

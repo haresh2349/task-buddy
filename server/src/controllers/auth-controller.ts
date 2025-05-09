@@ -25,7 +25,7 @@ export const loginUser = async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        throw new CustomError(400, "provide valid credentials!");
+        throw new CustomError(400, "All fields are required!");
     }
 
     const { user, accessToken, refreshToken } = await authService.loginUser(email, password);
@@ -46,7 +46,7 @@ export const loginUser = async (req: Request, res: Response) => {
 
     res.cookie('accessToken', accessToken, accessTokenOptions);
     res.cookie('refreshToken', refreshToken, refreshTokenOptions);
-    
+    console.log(res.get('Set-Cookie'),"loggedin")
     successResponseHandler(res, 200, "User loggedIn successfully.", { 
         id: user._id, 
         accessToken 
