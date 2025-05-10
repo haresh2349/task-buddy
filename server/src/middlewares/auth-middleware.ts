@@ -3,7 +3,8 @@ import { CustomError } from "../errors/custom-error";
 import jwt from "jsonwebtoken"
 import { UserJwtPayload } from "../types/user-types";
 export const verifyToken = async (req:Request,res:Response,next:NextFunction) => {
-    const token = req.cookies.accessToken;
+    const token = req.headers.authorization?.replace("Bearer ","") || req.cookies.accessToken;
+    debugger
         if(!token){
             throw new CustomError(401,"UnAuthorized request!")
         }
