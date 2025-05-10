@@ -30,7 +30,7 @@ export const createTodo = async (newTodo: CreateTodoProps) => {
             .lean();
 
     } catch (error) {
-        console.log(error,"error")
+        // console.log(error,"error")
     }
 };
 
@@ -73,7 +73,7 @@ export const getUserTodos = async (params: GetUserTodosParams) => {
             TodoModel.find(query)
                 .select('-__v -user')
                 .sort(sortOptions)
-                .skip((params.page - 1) * params.limit)
+                .skip(((params.page) - 1) * params.limit)
                 .limit(params.limit)
                 .lean(),
             TodoModel.countDocuments(query)
@@ -85,7 +85,6 @@ export const getUserTodos = async (params: GetUserTodosParams) => {
         };
 
     } catch (error) {
-        console.error("Error fetching todos:", error);
         throw new CustomError(500, "Failed to fetch todos");
     }
 };
@@ -118,7 +117,6 @@ export const deleteTodos = async ({userId,todoIds}: DeleteTodosParams) => {
         };
 
     } catch (error) {
-        console.error("Error deleting todos:", error);
         throw new CustomError(500, "Failed to delete todos");
     }
 };
@@ -177,7 +175,6 @@ export const updateTodoItem = async (params: UpdateTodoParams) => {
 
     } catch (error) {
         if (error instanceof CustomError) throw error;
-        console.error("Error updating todo:", error);
         throw new CustomError(500, "Failed to update todo");
     }
 };
@@ -187,14 +184,13 @@ export const updateTodoItem = async (params: UpdateTodoParams) => {
 export const getSingleTodo = async (todoId:string,userId:string) => {
     try {
         const user = await UserModel.findById(userId);
-        console.log(user,"user task")
         if(!user){
             throw new CustomError(401,"UnAuthorized request!")
         }
 
         const todo = await TodoModel.findOne({_id:todoId,user:userId});
         if(!todo){
-            throw new CustomError(400,'Invalid task id!')
+            throw new CustomError(404,'Invalid task id!')
         }
 
         return todo

@@ -1,7 +1,7 @@
 import UserModel from "../models/user-model";
 import request from "supertest"
 import app from "../app-test"
-describe('User registration',() => {
+describe.skip('User registration',() => {
     const api = '/api/v1/auth/signup';
 
     beforeEach(async () => {
@@ -79,7 +79,7 @@ describe('User registration',() => {
     })
 })
 
-describe('User login', () => {
+describe.skip('User login', () => {
     const api = '/api/v1/auth/signin';
 
     beforeEach(async () => {

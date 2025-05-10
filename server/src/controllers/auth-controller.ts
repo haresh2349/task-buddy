@@ -46,7 +46,6 @@ export const loginUser = async (req: Request, res: Response) => {
 
     res.cookie('accessToken', accessToken, accessTokenOptions);
     res.cookie('refreshToken', refreshToken, refreshTokenOptions);
-    console.log(res.get('Set-Cookie'),"loggedin")
     successResponseHandler(res, 200, "User loggedIn successfully.", { 
         id: user._id, 
         accessToken 

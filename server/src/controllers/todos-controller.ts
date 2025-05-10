@@ -9,16 +9,25 @@ export const createTodo = async (req: Request, res: Response) => {
         // 1. Validate input
         const { title, description, dueDate, status } = req.body;
         if (!req?.user) {
-            throw new CustomError(401, "UnAuthorized request");
+            throw new CustomError(401, "UnAuthorized request!");
         }
 
         const userId = req?.user?._id; // From auth middleware
         
         if(!userId){
-            throw new CustomError(401, "UnAuthorized request") 
+            throw new CustomError(401, "UnAuthorized request!") 
         }
         if (!title) {
             throw new CustomError(400, "Title is required");
+        }
+        if (!dueDate) {
+            throw new CustomError(400, "Due date is required");
+        }
+
+        const date = new Date(dueDate);
+        const isDueDateValid = !isNaN(date.getTime()) && date.toISOString().startsWith(dueDate)
+        if(!isDueDateValid){
+            throw new CustomError(400,'Invalid Due Date')
         }
 
         // 2. Validate status if provided
@@ -99,7 +108,6 @@ export const getUserTodos = async (req: Request, res: Response) => {
 // controller to delete todos of particular user : This manage multi delete
 export const deleteTodos = async (req:Request,res:Response) => {
     try {
-        console.log(req.body,"body")
         const {todoIds} = req.body;
         const userId = req?.user?._id;
         if(!userId) {
@@ -110,12 +118,12 @@ export const deleteTodos = async (req:Request,res:Response) => {
         }
         
         if(!todoIds?.length){
-            return
+            successResponseHandler(res, 200, "No todos were deleted",{deletedCount:0});
         }
 
         const result = await todoService.deleteTodos({userId,todoIds})
         if (result.deletedCount === 0) {
-            successResponseHandler(res, 200, "No todos were deleted",{});
+            successResponseHandler(res, 200, "No todos were deleted",{deletedCount:0});
         } else {
             successResponseHandler(
                 res,
@@ -177,7 +185,6 @@ export const getSingleTodo = async (req:Request,res:Response) => {
         if(!id){
             throw new CustomError(400,"task id can not be empty!")
         }
-        console.log(req.user,"user from controller")
         const todo = await todoService.getSingleTodo(id,userId);
 
         successResponseHandler(
@@ -187,6 +194,7 @@ export const getSingleTodo = async (req:Request,res:Response) => {
             todo
         )
     } catch (error) {
+        console.log(error,"erer")
         throw error
     }
 }

@@ -3,10 +3,9 @@ import { CustomError } from "../errors/custom-error";
 import jwt from "jsonwebtoken"
 import { UserJwtPayload } from "../types/user-types";
 export const verifyToken = async (req:Request,res:Response,next:NextFunction) => {
-    const token = req.headers.authorization?.replace("Bearer ","");
+    const token = req.cookies.accessToken;
         if(!token){
-          console.log("from here")
-            throw new CustomError(401,"UnAuthorized request")
+            throw new CustomError(401,"UnAuthorized request!")
         }
         try {
             const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_KEY as string) as UserJwtPayload;
