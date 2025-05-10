@@ -1,10 +1,10 @@
 import { useDrop } from "react-dnd";
-import { Todo } from "../../types/todos-types";
+import { Todo } from "../../../../types/todos-types";
 import { BoardTaskCard } from "./BoardTaskCard"
 import { useCallback, useRef } from "react";
-import { handleSubmitEditTask } from "./managers/todos-manager";
-import { useAppDispatch } from "../../hooks/app.hooks";
-import { TASK_STATUS_VIEWABLE_TEXT } from "../../constants/app.constant";
+import { handleSubmitEditTask } from "../../managers/todos-manager";
+import { useAppDispatch } from "../../../../hooks/app.hooks";
+import { TASK_STATUS_VIEWABLE_TEXT } from "../../../../constants/app.constant";
 
 interface BoardItemProps {
   statusFlagBg :string;

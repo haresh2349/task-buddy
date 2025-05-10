@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/app.hooks"
+import { useAppDispatch, useAppSelector } from "../../../../hooks/app.hooks"
 import { BoardItem } from "./BoardItem"
-import { GroupedTodos, Todo } from "../../types/todos-types";
-import { handlegetGroupedTodos, handleGetTodos } from "./managers/todos-manager";
+import { GroupedTodos, Todo } from "../../../../types/todos-types";
+import { handlegetGroupedTodos, handleGetTodos } from "../../managers/todos-manager";
 import {BounceLoader} from "react-spinners"
 
 export const TodosBoard = () => {

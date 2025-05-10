@@ -2,11 +2,12 @@ import { useState } from "react"
 import { Navbar } from "../../components/navbar/Navbar"
 import { CreateTodoModal } from "./CreateTodoModal"
 import { Filters } from "./Filters"
-import { TodosBoard } from "./TodosBoard"
+import { TodosBoard } from "./components/board/TodosBoard"
 import { useAppSelector } from "../../hooks/app.hooks"
 import { EditTodoModal } from "./EditTodoModal"
 import { useDispatch } from "react-redux"
 import { toggleEditTodoModal } from "../../store/slices/todos-slice"
+import { TodosList } from "./components/list/TodosList"
 
 export const Dashboard = () => {
     const dispatch = useDispatch();
@@ -20,7 +21,8 @@ export const Dashboard = () => {
         <div className="w-[100%] h-[100%] flex flex-col justify-between">
             <Navbar/>
             <Filters activeTab={activeTab} setActiveTab={setActiveTab} setShowTodoModal={setShowTodoModal} />
-            <TodosBoard/>
+            {activeTab === 'board' && <TodosBoard/>}
+            {activeTab === 'list' && <TodosList/>}
         </div>
         {showTodoModal && <CreateTodoModal isOpen={showTodoModal} onClose={() => setShowTodoModal(false)} onSubmit={() => {}}/>}
         {showEditTodoModal && <EditTodoModal isOpen={showEditTodoModal} onClose={closeEditModal} />}
