@@ -128,6 +128,14 @@ export const BoardTaskCard = ({
           <p className="text-xs text-gray-500">{todo?.description}</p>
         </div>
 
+        <div className="absolute left-3 bottom-3">
+          <p className="text-xs text-black-500 font-medium">
+            {todo?.dueDate
+              ? `Due On : ${formatRelativeDate(todo?.dueDate)}`
+              : ""}
+          </p>
+        </div>
+
         <div className="absolute right-3 bottom-3">
           <p className="text-xs text-gray-500">
             {todo?.updatedAt ? formatRelativeDate(todo?.updatedAt) : ""}

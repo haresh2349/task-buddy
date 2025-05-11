@@ -4,43 +4,49 @@ import { activateSnackbar } from "../store/slices/common-slice";
 import { updateAuthenticationStatus } from "../store/slices/auth-slice";
 
 export const getToken = () => {
-    return localStorage.getItem('accessToken') || ''
-}
+  return localStorage.getItem("accessToken") || "";
+};
 
-export const handleApiFailure = ({error,defaultMessage,dispatch}:HandleApiFailureProps) => {
-    let errorMessage = "";
-    if (axios.isAxiosError(error)){
-      errorMessage = error.response?.data?.message;
-      // dispatch(activateSnackbar({message:error.response?.data?.message,type:"error"}))
-    } else if(error instanceof Error) {
-      errorMessage = error?.message
-      // dispatch(activateSnackbar({message:error?.message || defaultMessage,type:"error"}))
-    }
-    if(errorMessage === "Token expired."){
-      localStorage.removeItem('accessToken')
-      localStorage.removeItem('loggedInUser');
-      dispatch(activateSnackbar({message:errorMessage || defaultMessage,type:"error"}));
-      dispatch(updateAuthenticationStatus(false))
-    }
-}
+export const handleApiFailure = ({
+  error,
+  defaultMessage,
+  dispatch,
+}: HandleApiFailureProps) => {
+  let errorMessage = "";
+  if (axios.isAxiosError(error)) {
+    errorMessage = error.response?.data?.message;
+    // dispatch(activateSnackbar({message:error.response?.data?.message,type:"error"}))
+  } else if (error instanceof Error) {
+    errorMessage = error?.message;
+    // dispatch(activateSnackbar({message:error?.message || defaultMessage,type:"error"}))
+  }
+  if (errorMessage === "Token expired.") {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("loggedInUser");
+    dispatch(updateAuthenticationStatus(false));
+  }
+  dispatch(
+    activateSnackbar({ message: errorMessage || defaultMessage, type: "error" })
+  );
+};
 
-export function getDDMMYYYY(dateString:string) {
-  if(!dateString){
-    return
+export function getDDMMYYYY(dateString: string) {
+  if (!dateString) {
+    return;
   }
   const istDate = convertUTCToIST(dateString);
   const dateArr = istDate.split("T");
-  const [year,month,day] = dateArr[0];
-  const [hr,min,sec] = dateArr[1];
- 
-  return `${day}-${month}-${year}`
+  const [year, month, day] = dateArr[0];
+  const [hr, min, sec] = dateArr[1];
+
+  return `${day}-${month}-${year}`;
 }
 
 export const convertUTCToIST = (utcDateString: string): string => {
   const utcDate = new Date(utcDateString);
 
   if (isNaN(utcDate.getTime())) {
-    return "Invalid UTC date string"
+    return "Invalid UTC date string";
   }
 
   // IST is UTC + 5 hours 30 minutes
@@ -54,7 +60,7 @@ export const convertUTCToIST = (utcDateString: string): string => {
   const hours = String(istDate.getHours()).padStart(2, "0");
   const minutes = String(istDate.getMinutes()).padStart(2, "0");
   const seconds = String(istDate.getSeconds()).padStart(2, "0");
-  
+
   return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 };
 
@@ -71,9 +77,19 @@ export const formatRelativeDate = (inputDateString: string): string => {
   const nowDateOnly = new Date(now.toDateString());
 
   const msInADay = 24 * 60 * 60 * 1000;
-  const diffInDays = Math.floor((inputDateOnly.getTime() - nowDateOnly.getTime()) / msInADay);
+  const diffInDays = Math.floor(
+    (inputDateOnly.getTime() - nowDateOnly.getTime()) / msInADay
+  );
 
-  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const dayNames = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
   if (diffInDays === 0) {
     return "Today";
@@ -90,15 +106,16 @@ export const formatRelativeDate = (inputDateString: string): string => {
   }
 };
 
-export const getFormattedDateForInputTag = (dateString:string) => {
+export const getFormattedDateForInputTag = (dateString: string) => {
   const istDate = convertUTCToIST(dateString);
   let date = new Date(istDate);
   const year = date.getFullYear();
   let month = date.getMonth() + 1;
   let day = date.getDate();
-  console.log(year,month,day)
-  let result = `${year}-${month > 9 ? month : "0" + month}-${day > 9 ? day : "0" + day}`;
-  console.log(result,"result")
-  return result
-}
-
+  console.log(year, month, day);
+  let result = `${year}-${month > 9 ? month : "0" + month}-${
+    day > 9 ? day : "0" + day
+  }`;
+  console.log(result, "result");
+  return result;
+};

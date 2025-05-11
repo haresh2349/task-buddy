@@ -1,41 +1,48 @@
 import { useEffect, useRef, useState } from "react";
-import { NoteIcon } from "../../assets/icon-components/NoteIcon"
-import { handleLogout } from "./navbar-manager";
+import { NoteIcon } from "../../assets/icon-components/NoteIcon";
+import { getUserDetails, handleLogout } from "./navbar-manager";
 import { useAppDispatch } from "../../hooks/app.hooks";
+import { User } from "../../types/users-types";
 
 export const Navbar = () => {
-    const dispatch = useAppDispatch();
-    const [isOpen,setIsOpen] = useState(false);
-    const popoverRef = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
+  const [isOpen, setIsOpen] = useState(false);
+  const popoverRef = useRef<HTMLDivElement>(null);
+  const [loggedInUser, setLoggedInUser] = useState<User>({} as User);
 
-
-
-    // Close popover when clicking outside
+  // Close popover when clicking outside
   useEffect(() => {
+    const loggedInUserId = localStorage.getItem("loginUser") || "";
     const handleClickOutside = (event: MouseEvent) => {
-      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
+      if (
+        popoverRef.current &&
+        !popoverRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
+    getUserDetails({ id: loggedInUserId, setterMethod: setLoggedInUser });
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-    return <div className="h-[10%] min-h-[60px] flex border border-black justify-between items-center py-2 px-4 shadow-[rgba(100, 100, 111, 0.2) 0px 7px 29px 0px]">
-            <div className="flex items-center gap-5">
-                <NoteIcon/>
-                <h4 className="text-[1rem] text-[#2F2F2F] font-bold">Task Buddy</h4>
-            </div>
-            <div className="relative" ref={popoverRef}>
-        <button 
+  return (
+    <div className="h-[10%] min-h-[60px] flex border border-black justify-between items-center py-2 px-4 shadow-[rgba(100, 100, 111, 0.2) 0px 7px 29px 0px]">
+      <div className="flex items-center gap-5">
+        <NoteIcon />
+        <h4 className="text-[1rem] text-[#2F2F2F] font-bold">Task Buddy</h4>
+      </div>
+      <div className="relative" ref={popoverRef}>
+        <button
           onClick={() => setIsOpen(!isOpen)}
           className="w-[30px] md:w-[50px] h-[30px] md:h-[50px] rounded-full bg-black text-white flex items-center justify-center cursor-pointer hover:bg-gray-800 transition-colors"
         >
-          HS
+          {loggedInUser?.username
+            ? `${loggedInUser?.username[0]?.toUpperCase()}`
+            : ""}
         </button>
-        
+
         {isOpen && (
           <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
             {/* <button
@@ -56,5 +63,6 @@ export const Navbar = () => {
           </div>
         )}
       </div>
-        </div>
-}
+    </div>
+  );
+};
