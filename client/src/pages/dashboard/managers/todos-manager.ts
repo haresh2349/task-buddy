@@ -10,6 +10,7 @@ import { activateSnackbar } from "../../../store/slices/common-slice";
 
 interface HandleGetTodosProps {
     dispatch :Dispatch;
+    searchQuery?:string;
 }
 
 
@@ -34,10 +35,10 @@ interface HandleSubmitCreateTaskProps {
     setIsLoading:React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const handleGetTodos = async ({dispatch}:HandleGetTodosProps) => {
+export const handleGetTodos = async ({dispatch,searchQuery}:HandleGetTodosProps) => {
     try {
         dispatch(startTodosLoading())
-        const response = await api.get<GetTodosResponse>(API_END_POINTS.getTodos);
+        const response = await api.get<GetTodosResponse>(API_END_POINTS.getTodos,{search:searchQuery});
         const data = response?.data?.result;
         dispatch(getTodosDetails(data))
     } catch (error) {
@@ -166,15 +167,17 @@ export const handleUpdateTask = async ({id,payload,dispatch,setIsLoading}:Handle
 interface HandleDeleteTaskProps {
     ids:string[];
     dispatch:Dispatch;
-    setIsLoading:React.Dispatch<React.SetStateAction<boolean>>
+    setIsLoading:React.Dispatch<React.SetStateAction<boolean>>;
+    next?:() => void;
 }
-export const handleDeleteTask = async ({ids,setIsLoading,dispatch}:HandleDeleteTaskProps) => {
+export const handleDeleteTask = async ({ids,setIsLoading,dispatch,next}:HandleDeleteTaskProps) => {
     try {
         setIsLoading(true);
         const response = await api.post(API_END_POINTS.deleteTodos,{todoIds:ids});
         if(response?.status === 200){
             dispatch(activateSnackbar({message:"Task delete successfully.",type:'success'}));
-            handleGetTodos({dispatch})
+            next && next()
+            handleGetTodos({dispatch});
         }
     } catch (error) {
         handleApiFailure({error,defaultMessage:"Failed to create a task!",dispatch})

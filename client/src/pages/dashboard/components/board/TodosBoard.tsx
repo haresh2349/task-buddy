@@ -11,10 +11,6 @@ export const TodosBoard = () => {
     const [groupedTodos,setGroupedTodos] = useState<GroupedTodos>({todo:[],inprogress:[],done:[]})
 
     useEffect(() => {
-        handleGetTodos({dispatch})
-    },[])   
-
-    useEffect(() => {
         setGroupedTodos(handlegetGroupedTodos(todos))
     },[todos])
     console.log(groupedTodos,todos,"groupedTodos")

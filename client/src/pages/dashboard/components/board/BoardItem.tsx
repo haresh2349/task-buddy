@@ -53,7 +53,7 @@ export const BoardItem = ({statusFlagBg,todos,status}:BoardItemProps) => {
                     })
                 }
             </div> : <div className="h-[100%] flex justify-center items-center">
-                <p>No Tasks in {status}</p>
+                <p>No Tasks in {TASK_STATUS_VIEWABLE_TEXT[status].text}</p>
             </div>
         }
      </div>

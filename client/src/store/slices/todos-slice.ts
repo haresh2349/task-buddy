@@ -7,6 +7,7 @@ interface TodosState {
     paginationDetails:PaginationDetails;
     showEditTodoModal:boolean;
     selectedTodoId:string;
+    todosToDelete:string[];
 }
 const  initialState : TodosState= {
     fetchTodosLoading:false,
@@ -20,6 +21,7 @@ const  initialState : TodosState= {
     },
     showEditTodoModal:false,
     selectedTodoId:'',
+    todosToDelete:[]
 }
 export const todoSlice = createSlice({
     initialState,
@@ -40,9 +42,19 @@ export const todoSlice = createSlice({
         },
         setSelectedTodoId(state,action:PayloadAction<string>){
             state.selectedTodoId = action.payload;
+        },
+        setTodosToDelete(state,action:PayloadAction<string>){
+            if(action?.payload){
+                const prevIds = state.todosToDelete;
+                const updatedIds = prevIds?.includes(action.payload) ? prevIds?.filter(id => id != action?.payload) : [...prevIds,action.payload];
+                state.todosToDelete = updatedIds
+            }
+        },
+        clearTodosToDelete(state){
+            state.todosToDelete = []
         }
     }
 })
 
-export const  {startTodosLoading,stopTodosLoading,getTodosDetails,setSelectedTodoId,toggleEditTodoModal} = todoSlice.actions;
+export const  {startTodosLoading,stopTodosLoading,getTodosDetails,setSelectedTodoId,toggleEditTodoModal,setTodosToDelete,clearTodosToDelete} = todoSlice.actions;
 export default todoSlice.reducer;

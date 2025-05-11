@@ -10,6 +10,10 @@ button {
   cursor: pointer;
 }
 
+input:focus {
+  outline: none;
+}
+
 .task.dragging {
   opacity: 0.5;
   background-color: #e1f5fe;

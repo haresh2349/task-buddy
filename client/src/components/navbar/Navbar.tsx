@@ -23,7 +23,7 @@ export const Navbar = () => {
     };
   }, []);
 
-    return <div className="h-[10%] flex border border-black justify-between items-center py-2 px-4 shadow-[rgba(100, 100, 111, 0.2) 0px 7px 29px 0px]">
+    return <div className="h-[10%] min-h-[60px] flex border border-black justify-between items-center py-2 px-4 shadow-[rgba(100, 100, 111, 0.2) 0px 7px 29px 0px]">
             <div className="flex items-center gap-5">
                 <NoteIcon/>
                 <h4 className="text-[1rem] text-[#2F2F2F] font-bold">Task Buddy</h4>
@@ -31,7 +31,7 @@ export const Navbar = () => {
             <div className="relative" ref={popoverRef}>
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className="w-[50px] h-[50px] rounded-full bg-black text-white flex items-center justify-center cursor-pointer hover:bg-gray-800 transition-colors"
+          className="w-[30px] md:w-[50px] h-[30px] md:h-[50px] rounded-full bg-black text-white flex items-center justify-center cursor-pointer hover:bg-gray-800 transition-colors"
         >
           HS
         </button>

@@ -1,22 +1,29 @@
 import { useEffect, useState } from 'react';
 import Accordion from './accordian/Accordian';
-import { useAppSelector } from '../../../../hooks/app.hooks';
-import { handlegetGroupedTodos } from '../../managers/todos-manager';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/app.hooks';
+import { handlegetGroupedTodos, handleGetTodos } from '../../managers/todos-manager';
 import { GroupedTodos } from '../../../../types/todos-types';
+import { BounceLoader } from 'react-spinners';
 
 export const TodosList = () => {
+    const dispatch = useAppDispatch()
     const [openTodos,setOpenTodos] = useState(true);
     const [openInProgress,setOpenInProgress] = useState(true);
     const [openDone,setOpenDone] = useState(true);
-    const {todos,paginationDetails} = useAppSelector(store => store.todos);
+    const {todos,paginationDetails,fetchTodosLoading} = useAppSelector(store => store.todos);
     const [groupedTodos,setGroupedTodos] = useState<GroupedTodos>({todo:[],inprogress:[],done:[]})
     
     useEffect(() => { 
         setGroupedTodos(handlegetGroupedTodos(todos))
     },[todos])
 
-    
+
     return <div className={`px-4 py-1 h-[80%] overflow-y-scroll`}>
+        {
+            fetchTodosLoading ? 
+            <div className="w-[100%] h-[100%] flex justify-center items-center">
+                <BounceLoader />
+            </div> :
             <div>
                 <div className='w-full flex justify-between items-center p-2'>
                     <p className='w-[40%] hidden md:block font-medium'>Task Name</p>
@@ -31,5 +38,7 @@ export const TodosList = () => {
                     <Accordion status='done' tasks={groupedTodos?.done} isOpen={openDone} toggleSection={setOpenDone}/>
                 </div>
             </div>
+        }
+            
     </div>
 }
