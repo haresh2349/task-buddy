@@ -16,7 +16,6 @@ export const handleSubmitLogin = async ({
   formData,
   setErrors,
   dispatch,
-  Navigate,
   setIsLoading,
 }: HandleSubmitLoginProps) => {
   e.preventDefault();

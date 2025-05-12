@@ -24,7 +24,7 @@ export const CreateTodoModal = ({
   });
   const [errors, setErrors] = useState({ title: "", dueDate: "" });
   const [isLoading, setIsLoading] = useState(false);
-  const [showConfirmationDailoag,setShowConfirmationDailog] = useState(false);
+  const [showConfirmationDailoag, setShowConfirmationDailog] = useState(false);
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -35,7 +35,10 @@ export const CreateTodoModal = ({
   if (!isOpen) return null;
   return (
     <>
-      <div className="absolute inset-0 bg-gray-500/50 flex justify-center items-center">
+      <div
+        test-id="create-todo-modal"
+        className="absolute inset-0 bg-gray-500/50 flex justify-center items-center"
+      >
         <div className="rounded bg-[#FFF] z-1 w-[40%] rounded-xl shadow-[rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset]">
           <div className="flex justify-between items-center p-4 border-b border-[#cecece]">
             <h3 className="text-lg font-semibold">Create New Task</h3>
@@ -114,7 +117,11 @@ export const CreateTodoModal = ({
             <div className="flex justify-end space-x-3 border-t pt-4">
               <button
                 type="button"
-                onClick={() => (formData?.title || formData?.dueDate || formData?.description) ? setShowConfirmationDailog(true) : onClose()}
+                onClick={() =>
+                  formData?.title || formData?.dueDate || formData?.description
+                    ? setShowConfirmationDailog(true)
+                    : onClose()
+                }
                 className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
               >
                 Cancel
@@ -139,7 +146,15 @@ export const CreateTodoModal = ({
           </form>
         </div>
       </div>
-      {showConfirmationDailoag && <ConfirmAction isLoading={isLoading} title="Cance" message="Are you sure ?" closeMethod={() => setShowConfirmationDailog(false)} confirmMethod={() => {}} />}
+      {showConfirmationDailoag && (
+        <ConfirmAction
+          isLoading={isLoading}
+          title="Cance"
+          message="Are you sure ?"
+          closeMethod={() => setShowConfirmationDailog(false)}
+          confirmMethod={() => {}}
+        />
+      )}
     </>
   );
 };

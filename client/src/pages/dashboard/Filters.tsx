@@ -53,6 +53,7 @@ export const Filters = ({
             </p>
           </div>
           <div
+            test-id="tab-board"
             onClick={() => setActiveTab("board")}
             className={`${
               activeTab === "board" ? activeTab : ""
