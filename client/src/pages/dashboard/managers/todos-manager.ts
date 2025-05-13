@@ -174,7 +174,7 @@ interface HandleSubmitEditTaskProps {
   onClose?: () => void;
   taskDetails: EditTodo;
   taskId: string;
-  setErrors: React.Dispatch<React.SetStateAction<EditTaskError>>;
+  setErrors?: React.Dispatch<React.SetStateAction<EditTaskError>>;
   setIsLoading?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -189,10 +189,11 @@ export const handleSubmitEditTask = async ({
 }: HandleSubmitEditTaskProps) => {
   e && e.preventDefault();
 
-  setErrors({
-    title: taskDetails?.title === "" ? "Title is required!" : "",
-    dueDate: taskDetails?.dueDate === "" ? "Due Date is required!" : "",
-  });
+  setErrors &&
+    setErrors({
+      title: taskDetails?.title === "" ? "Title is required!" : "",
+      dueDate: taskDetails?.dueDate === "" ? "Due Date is required!" : "",
+    });
 
   debugger;
   if (taskDetails?.title === "" || taskDetails?.dueDate === "") {
