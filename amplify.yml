@@ -1,17 +1,18 @@
+version: 1
 applications:
-  - frontend:
+  - appRoot: client
+    frontend:
       phases:
         preBuild:
           commands:
-            - cd client
-            - yarn install
+            - yarn install --frozen-lockfile
         build:
           commands:
             - yarn build
       artifacts:
-        baseDirectory: client/dist # use `client/build` for CRA
+        baseDirectory: dist
         files:
           - "**/*"
       cache:
         paths:
-          - client/node_modules/**
+          - node_modules/**
