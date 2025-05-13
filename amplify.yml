@@ -1,18 +1,17 @@
-version: 1
-frontend:
-  phases:
-    preBuild:
-      commands:
-        - nvm install 20
-        - nvm use 20
-        - yarn install
-    build:
-      commands:
-        - yarn build
-  artifacts:
-    baseDirectory: client/dist # Or client/build for CRA
-    files:
-      - "**/*"
-  cache:
-    paths:
-      - node_modules/**
+applications:
+  - frontend:
+      phases:
+        preBuild:
+          commands:
+            - cd client
+            - yarn install
+        build:
+          commands:
+            - yarn build
+      artifacts:
+        baseDirectory: client/dist # use `client/build` for CRA
+        files:
+          - "**/*"
+      cache:
+        paths:
+          - client/node_modules/**
