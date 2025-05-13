@@ -16,6 +16,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      MONGO_DB_PROTOCOL: ${{ secrets.MONGO_DB_PROTOCOL }}
+      MONGO_DB_USERNAME: ${{ secrets.MONGO_DB_USERNAME }}
+      MONGO_DB_PASSWORD: ${{ secrets.MONGO_DB_PASSWORD }}
+      MONGO_DB_HOST: ${{ secrets.MONGO_DB_HOST }}
+      MONGO_DB_NAME: ${{ secrets.MONGO_DB_NAME }}
+      PORT: ${{ secrets.PORT }}
+      ACCESS_TOKEN_KEY: ${{ secrets.ACCESS_TOKEN_KEY }}
+      ACCESS_TOKEN_EXPIRY: ${{ secrets.ACCESS_TOKEN_EXPIRY }}
+      REFRESH_TOKEN_KEY: ${{ secrets.REFRESH_TOKEN_KEY }}
+      REFRESH_TOKEN_EXPIRY: ${{ secrets.REFRESH_TOKEN_EXPIRY }}
+      NODE_ENV: ${{ secrets.NODE_ENV }}
+
     defaults:
       run:
         working-directory: server
