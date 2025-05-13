@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MdClose, MdCalendarToday } from "react-icons/md";
 import { handleSubmitCreateTask } from "./managers/todos-manager";
 import { useAppDispatch } from "../../hooks/app.hooks";
 import { ConfirmAction } from "../../components/confirm-action/ConfirmAction";
+import { BeatLoader } from "react-spinners";
 
 interface CreateTodoModalProps {
   isOpen: boolean;
@@ -135,7 +136,7 @@ export const CreateTodoModal = ({ isOpen, onClose }: CreateTodoModalProps) => {
                 }
                 className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                Create Task
+                {isLoading ? <BeatLoader color="#FFF" /> : "Create Task"}
               </button>
             </div>
           </form>

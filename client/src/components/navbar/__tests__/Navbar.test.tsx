@@ -4,8 +4,6 @@ import { Provider } from "react-redux";
 import * as navbarManager from "../navbar-manager";
 import { store } from "../../../store/store";
 
-const mockDispatch = jest.fn();
-
 // Mock getUserDetails and handleLogout
 jest.mock("../navbar-manager", () => ({
   getUserDetails: jest.fn(),
@@ -88,26 +86,25 @@ describe("Navbar Component", () => {
     expect(navbarManager.handleLogout as jest.Mock).toHaveBeenCalledWith(
       expect.any(Function)
     );
-    // expect(screen.getByText(/Sign In/i)).toBeInTheDocument();
   });
 
-  //   it("closes popover on outside click", async () => {
-  //     (navbarManager.getUserDetails as jest.Mock).mockImplementation(
-  //       ({ setterMethod }) => setterMethod(mockUser)
-  //     );
+  it("closes popover on outside click", async () => {
+    (navbarManager.getUserDetails as jest.Mock).mockImplementation(
+      ({ setterMethod }) => setterMethod(mockUser)
+    );
 
-  //     const { container } = setup();
+    const { container } = setup();
 
-  //     const avatarBtn = screen.getByTestId("avatar-btn");
-  //     fireEvent.click(avatarBtn);
+    const avatarBtn = screen.getByTestId("avatar-btn");
+    fireEvent.click(avatarBtn);
 
-  //     expect(screen.getByText(mockUser.username)).toBeInTheDocument();
+    expect(screen.getByText(mockUser.username)).toBeInTheDocument();
 
-  //     // Click outside (on the container)
-  //     fireEvent.mouseDown(container);
+    // Click outside (on the container)
+    fireEvent.mouseDown(container);
 
-  //     await waitFor(() => {
-  //       expect(screen.queryByText(mockUser.username)).not.toBeInTheDocument();
-  //     });
-  //   });
+    await waitFor(() => {
+      expect(screen.queryByText(mockUser.username)).not.toBeInTheDocument();
+    });
+  });
 });

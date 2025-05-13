@@ -1,5 +1,5 @@
 // Dashboard.test.tsx
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { Dashboard } from "../Dashboard"; // Adjust path
 import * as reduxHooks from "../../../hooks/app.hooks";
 import * as todosManager from "../managers/todos-manager";
@@ -10,6 +10,7 @@ import { Provider } from "react-redux";
 jest.mock("../../../components/navbar/Navbar", () => ({
   Navbar: () => <div data-testid="navbar">Task Buddy</div>,
 }));
+
 jest.mock("../CreateTodoModal", () => ({
   CreateTodoModal: ({ isOpen, onClose }: any) =>
     isOpen ? (
@@ -37,7 +38,7 @@ jest.mock("../components/board/TodosBoard", () => ({
 }));
 
 jest.mock("../Filters", () => ({
-  Filters: ({ activeTab, setActiveTab, setShowTodoModal }: any) => (
+  Filters: ({ setActiveTab, setShowTodoModal }: any) => (
     <div data-testid="filters">
       <button onClick={() => setActiveTab("list")}>List</button>
       <button onClick={() => setActiveTab("board")}>Board</button>

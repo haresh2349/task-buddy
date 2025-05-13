@@ -1,21 +1,15 @@
 import { useEffect, useState } from "react";
 import Accordion from "./accordian/Accordian";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/app.hooks";
-import {
-  handlegetGroupedTodos,
-  handleGetTodos,
-} from "../../managers/todos-manager";
+import { useAppSelector } from "../../../../hooks/app.hooks";
+import { handlegetGroupedTodos } from "../../managers/todos-manager";
 import { GroupedTodos } from "../../../../types/todos-types";
 import { BounceLoader } from "react-spinners";
 
 export const TodosList = () => {
-  const dispatch = useAppDispatch();
   const [openTodos, setOpenTodos] = useState(true);
   const [openInProgress, setOpenInProgress] = useState(true);
   const [openDone, setOpenDone] = useState(true);
-  const { todos, paginationDetails, fetchTodosLoading } = useAppSelector(
-    (store) => store.todos
-  );
+  const { todos, fetchTodosLoading } = useAppSelector((store) => store.todos);
   const [groupedTodos, setGroupedTodos] = useState<GroupedTodos>({
     todo: [],
     inprogress: [],
