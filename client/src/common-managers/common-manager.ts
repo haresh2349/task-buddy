@@ -37,7 +37,6 @@ export function getDDMMYYYY(dateString: string) {
   const istDate = convertUTCToIST(dateString);
   const dateArr = istDate.split("T");
   const [year, month, day] = dateArr[0];
-  const [hr, min, sec] = dateArr[1];
 
   return `${day}-${month}-${year}`;
 }

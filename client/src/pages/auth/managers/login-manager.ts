@@ -8,7 +8,6 @@ import {
   HandleLoginProps,
   HandleLoginUserReponse,
   HandleSubmitLoginProps,
-  LoginFormData,
 } from "../../../types/auth-types";
 
 export const handleSubmitLogin = async ({

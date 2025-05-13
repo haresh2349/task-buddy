@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/app.hooks";
+import { useAppSelector } from "../../../../hooks/app.hooks";
 import { BoardItem } from "./BoardItem";
 import { GroupedTodos } from "../../../../types/todos-types";
 import { handlegetGroupedTodos } from "../../managers/todos-manager";
 import { BounceLoader } from "react-spinners";
 
 export const TodosBoard = () => {
-  const dispatch = useAppDispatch();
-  const { todos, fetchTodosLoading, paginationDetails } = useAppSelector(
-    (store) => store.todos
-  );
+  const { todos, fetchTodosLoading } = useAppSelector((store) => store.todos);
   const [groupedTodos, setGroupedTodos] = useState<GroupedTodos>({
     todo: [],
     inprogress: [],
