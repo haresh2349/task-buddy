@@ -31,7 +31,7 @@ const Accordion: React.FC<AccordionProps> = ({
   const [deleteLoading, setDeleteLoading] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
   const [showDeleteDailoag, setShowDeleteDailog] = useState(false);
-  const [taskToDelete,setTaskToDelete] = useState('');
+  const [taskToDelete, setTaskToDelete] = useState("");
   const handleClickMore = (rowId: string) => {
     setActivePopover(rowId);
     setShowPopover((prev) =>
@@ -58,7 +58,6 @@ const Accordion: React.FC<AccordionProps> = ({
     };
   }, []);
 
-  console.log(activePopover,"ap")
   return (
     <>
       <div className="rounded-b-md shadow-sm">
@@ -93,11 +92,11 @@ const Accordion: React.FC<AccordionProps> = ({
                   <p className="w-[30%] hidden md:block font-medium">
                     {task?.dueDate ? formatRelativeDate(task?.dueDate) : ""}
                   </p>
-                  <p className="w-[20%] hidden md:block">
+                  <div className="w-[20%] hidden md:block">
                     <button className="bg-[#DDDADD] rounded-sm py-1 px-2 text-xs font-medium">
                       {TASK_STATUS_VIEWABLE_TEXT[task.status].text}
                     </button>
-                  </p>
+                  </div>
                   <div className="relative">
                     <button onClick={() => handleClickMore(task?._id || "")}>
                       <MdMoreHoriz />
@@ -112,7 +111,9 @@ const Accordion: React.FC<AccordionProps> = ({
                           onClick={() => {
                             dispatch(toggleEditTodoModal(true));
                             dispatch(setSelectedTodoId(task?._id || ""));
-                            setShowPopover((prev) => prev?.filter((id) => id !== activePopover));
+                            setShowPopover((prev) =>
+                              prev?.filter((id) => id !== activePopover)
+                            );
                             setActivePopover("");
                           }}
                         >
@@ -121,8 +122,8 @@ const Accordion: React.FC<AccordionProps> = ({
                         <button
                           className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
                           onClick={() => {
-                            setShowDeleteDailog(true)
-                            setTaskToDelete(task?._id || '')
+                            setShowDeleteDailog(true);
+                            setTaskToDelete(task?._id || "");
                           }}
                         >
                           Delete
@@ -142,17 +143,17 @@ const Accordion: React.FC<AccordionProps> = ({
           message="Are you sure ?"
           isLoading={deleteLoading}
           closeMethod={() => setShowDeleteDailog(false)}
-          confirmMethod={() =>{
-            console.log(activePopover,"app")
+          confirmMethod={() => {
+            console.log(activePopover, "app");
             handleDeleteTask({
               ids: taskToDelete ? [taskToDelete] : [],
               dispatch,
               setIsLoading: setDeleteLoading,
-              next:() => {
+              next: () => {
                 setShowDeleteDailog(false);
-                setTaskToDelete('')
-              }
-            })
+                setTaskToDelete("");
+              },
+            });
           }}
         />
       )}

@@ -32,7 +32,10 @@ export const Filters = ({
 
   return (
     <>
-      <div className="w-full px-4 py-2 flex justify-between items-center">
+      <div
+        data-testid="filters"
+        className="w-full px-4 py-2 flex justify-between items-center"
+      >
         <div className="hidden  md:flex items-center gap-4">
           <div
             onClick={() => setActiveTab("list")}
@@ -53,7 +56,7 @@ export const Filters = ({
             </p>
           </div>
           <div
-            test-id="tab-board"
+            data-testid="tab-board"
             onClick={() => setActiveTab("board")}
             className={`${
               activeTab === "board" ? activeTab : ""

@@ -27,7 +27,10 @@ export const TodosList = () => {
   }, [todos]);
 
   return (
-    <div test-id="todos-list" className={`px-4 py-1 h-[80%] overflow-y-scroll`}>
+    <div
+      data-testid="todos-list"
+      className={`px-4 py-1 h-[80%] overflow-y-scroll`}
+    >
       {fetchTodosLoading ? (
         <div className="w-[100%] h-[100%] flex justify-center items-center">
           <BounceLoader />

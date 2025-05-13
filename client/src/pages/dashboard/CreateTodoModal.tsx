@@ -7,14 +7,9 @@ import { ConfirmAction } from "../../components/confirm-action/ConfirmAction";
 interface CreateTodoModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: () => void;
 }
 
-export const CreateTodoModal = ({
-  isOpen,
-  onClose,
-  onSubmit,
-}: CreateTodoModalProps) => {
+export const CreateTodoModal = ({ isOpen, onClose }: CreateTodoModalProps) => {
   const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
     title: "",
@@ -36,7 +31,7 @@ export const CreateTodoModal = ({
   return (
     <>
       <div
-        test-id="create-todo-modal"
+        data-testid="create-todo-modal"
         className="absolute inset-0 bg-gray-500/50 flex justify-center items-center"
       >
         <div className="rounded bg-[#FFF] z-1 w-[40%] rounded-xl shadow-[rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset]">

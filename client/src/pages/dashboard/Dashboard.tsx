@@ -3,15 +3,14 @@ import { Navbar } from "../../components/navbar/Navbar";
 import { CreateTodoModal } from "./CreateTodoModal";
 import { Filters } from "./Filters";
 import { TodosBoard } from "./components/board/TodosBoard";
-import { useAppSelector } from "../../hooks/app.hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/app.hooks";
 import { EditTodoModal } from "./EditTodoModal";
-import { useDispatch } from "react-redux";
 import { toggleEditTodoModal } from "../../store/slices/todos-slice";
 import { TodosList } from "./components/list/TodosList";
 import { handleGetTodos } from "./managers/todos-manager";
 
 export const Dashboard = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [showTodoModal, setShowTodoModal] = useState(false);
   const { showEditTodoModal } = useAppSelector((store) => store.todos);
   const [activeTab, setActiveTab] = useState<"list" | "board">("list");
@@ -34,14 +33,13 @@ export const Dashboard = () => {
           setActiveTab={setActiveTab}
           setShowTodoModal={setShowTodoModal}
         />
-        {activeTab === "board" && <TodosBoard />}
         {activeTab === "list" && <TodosList />}
+        {activeTab === "board" && <TodosBoard />}
       </div>
       {showTodoModal && (
         <CreateTodoModal
           isOpen={showTodoModal}
           onClose={() => setShowTodoModal(false)}
-          onSubmit={() => {}}
         />
       )}
       {showEditTodoModal && (

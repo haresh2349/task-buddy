@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/app.hooks";
 import { BoardItem } from "./BoardItem";
-import { GroupedTodos, Todo } from "../../../../types/todos-types";
-import {
-  handlegetGroupedTodos,
-  handleGetTodos,
-} from "../../managers/todos-manager";
+import { GroupedTodos } from "../../../../types/todos-types";
+import { handlegetGroupedTodos } from "../../managers/todos-manager";
 import { BounceLoader } from "react-spinners";
 
 export const TodosBoard = () => {
@@ -22,10 +19,10 @@ export const TodosBoard = () => {
   useEffect(() => {
     setGroupedTodos(handlegetGroupedTodos(todos));
   }, [todos]);
-  console.log(groupedTodos, todos, "groupedTodos");
+
   return (
     <div
-      test-id="todos-board"
+      data-testid="todos-board"
       className="flex flex-col md:flex-row gap-2 p-2 justify-between h-[80%]"
     >
       {fetchTodosLoading ? (
