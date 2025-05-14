@@ -25,3 +25,22 @@ applications:
       cache:
         paths:
           - node_modules/**
+
+  - appRoot: server
+    backend:
+      phases:
+        preBuild:
+          commands:
+            - echo "Installing dependencies for server..."
+            - cd server && yarn install
+        build:
+          commands:
+            - echo "Building the server..."
+            - cd server && yarn build
+      artifacts:
+        baseDirectory: server/dist
+        files:
+          - "**/*"
+      cache:
+        paths:
+          - server/node_modules/**
