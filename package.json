@@ -1,14 +1,15 @@
 {
   "name": "task-buddy",
-  "private":true,
+  "private": true,
   "workspaces": [
     "client",
     "server"
   ],
   "scripts": {
-    "client:dev:start":"yarn workspace client dev",
+    "client:dev:start": "yarn workspace client dev",
     "build:client": "yarn workspace client build",
-    "server:dev:start":"yarn workspace server start:dev",
-    "server:test":"yarn workspace server test"
-  }
+    "server:dev:start": "yarn workspace server start:dev",
+    "server:test": "yarn workspace server test"
+  },
+  "packageManager": "yarn@4.9.1"
 }
