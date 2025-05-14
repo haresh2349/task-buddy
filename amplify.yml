@@ -17,36 +17,8 @@ applications:
             - yarn install --frozen-lockfile
         build:
           commands:
+            - yarn test
             - yarn build
-      artifacts:
-        baseDirectory: dist
-        files:
-          - "**/*"
-      cache:
-        paths:
-          - node_modules/**
-
-  - appRoot: server
-    backend:
-      phases:
-        preBuild:
-          commands:
-            - echo "Installing Node.js v22 with nvm..."
-            - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-            - export NVM_DIR=$HOME/.nvm
-            - '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
-            - nvm install 22
-            - nvm use 22
-            - node -v
-            - corepack enable
-            - yarn set version stable
-            - yarn install --frozen-lockfile
-        build:
-          commands:
-            - yarn build
-        postBuild:
-          commands:
-            - echo "Build complete. Ready to deploy backend."
       artifacts:
         baseDirectory: dist
         files:
