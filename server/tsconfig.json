@@ -8,7 +8,8 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "types":["node","jest","./src/types/express"]
+    "sourceMap": true,
+    "types": ["node", "jest", "./src/types/express"]
   },
-  "include": ["src/types","src", "tests"]
+  "include": ["src/types", "src", "tests"]
 }

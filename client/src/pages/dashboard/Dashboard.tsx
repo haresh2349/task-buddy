@@ -13,7 +13,7 @@ export const Dashboard = () => {
   const dispatch = useAppDispatch();
   const [showTodoModal, setShowTodoModal] = useState(false);
   const { showEditTodoModal } = useAppSelector((store) => store.todos);
-  const [activeTab, setActiveTab] = useState<"list" | "board">("list");
+  const [activeTab, setActiveTab] = useState<"list" | "board">("board");
   // const {todos,paginationDetails} = useAppSelector(store => store.todos);
 
   const closeEditModal = () => {

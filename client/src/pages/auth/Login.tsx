@@ -3,6 +3,8 @@ import { LoginFormData } from "../../types/auth-types";
 import { handleSubmitLogin } from "./managers/login-manager";
 import { useAppDispatch } from "../../hooks/app.hooks";
 import { BeatLoader } from "react-spinners";
+import GoogleLoginButton from "./GoogleLogin";
+import Input from "../../components/ui/Input";
 const Login = ({
   setShowSignup,
 }: {
@@ -73,7 +75,7 @@ const Login = ({
               >
                 Password
               </label>
-              <input
+              <Input
                 id="password"
                 name="password"
                 type="password"
@@ -102,9 +104,12 @@ const Login = ({
             </div>
           </div>
           <div>
+            <GoogleLoginButton />
+          </div>
+          <div>
             <button
               type="submit"
-              className="relative flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="relative w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md group hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               {isLoading ? <BeatLoader color="#FFF" /> : "Sign In"}
             </button>

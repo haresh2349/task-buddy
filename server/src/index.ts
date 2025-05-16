@@ -4,7 +4,6 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import ConnectToDB from "./config/db";
 import { errorHandler } from "./middlewares/error-handler-middleware";
-
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8080;

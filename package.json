@@ -9,7 +9,8 @@
     "client:dev:start": "yarn workspace client dev",
     "build:client": "yarn workspace client build",
     "server:dev:start": "yarn workspace server start:dev",
-    "server:test": "yarn workspace server test"
+    "server:test": "yarn workspace server test",
+    "client:test": "yarn workspace client test"
   },
   "packageManager": "yarn@4.9.1"
 }

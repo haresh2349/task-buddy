@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Specific Backend Test",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/server",
+      "program": "${workspaceFolder}/server/node_modules/jest/bin/jest.js",
+      "args": [
+        "${relativeFile}", // this will run only the currently open file
+        "--runInBand",
+        "--detectOpenHandles"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "env": {
+        "NODE_ENV": "test"
+      }
+    }
+  ]
+}

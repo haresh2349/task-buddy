@@ -2,7 +2,7 @@ import axios from "axios";
 import type { InternalAxiosRequestConfig } from "axios";
 import { getToken } from "../common-managers/common-manager";
 export const axiosInstance = axios.create({
-  baseURL: "https://d2j73gx98hp4tn.cloudfront.net/api/v1",
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   timeout: 30000,
   headers: {
     "Content-Type": "application/json",
