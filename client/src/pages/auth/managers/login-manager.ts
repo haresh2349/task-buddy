@@ -7,6 +7,7 @@ import { activateSnackbar } from "../../../store/slices/common-slice";
 import {
   HandleLoginProps,
   HandleLoginUserReponse,
+  HandleLoginWithGoogleProps,
   HandleSubmitLoginProps,
 } from "../../../types/auth-types";
 
@@ -78,5 +79,31 @@ const handleLoginUser = async ({
     handleApiFailure({ error, defaultMessage: "Login failed!", dispatch });
   } finally {
     setIsLoading(false);
+  }
+};
+
+export const handleLoginWithGoogle = async ({
+  name,
+  email,
+  googleId,
+  dispatch,
+}: HandleLoginWithGoogleProps) => {
+  try {
+    const response = await api.post<HandleLoginUserReponse>(
+      API_END_POINTS.loginWithGoogle,
+      { name, email, googleId },
+      { "x-auth-require": false }
+    );
+    const data = response?.data;
+    if (data?.result.accessToken) {
+      dispatch(activateSnackbar({ message: data?.message, type: "success" }));
+      setTimeout(() => {
+        dispatch(updateAuthenticationStatus(true));
+        localStorage.setItem("accessToken", data?.result?.accessToken);
+        localStorage.setItem("loginUser", data?.result?.id);
+      }, 100);
+    }
+  } catch (error) {
+    handleApiFailure({ error, defaultMessage: "Login failed!", dispatch });
   }
 };

@@ -6,6 +6,16 @@ import * as todosManager from "../managers/todos-manager";
 import configureStore from "redux-mock-store";
 import { Provider } from "react-redux";
 
+jest.mock("../../../api/axios-instance.ts", () => {
+  const mockAxios = require("axios");
+  return {
+    __esModule: true,
+    default: mockAxios.create({
+      baseURL: "http://localhost:8080/api/v1", // mock test URL
+    }),
+  };
+});
+
 // Mock child components
 jest.mock("../../../components/navbar/Navbar", () => ({
   Navbar: () => <div data-testid="navbar">Task Buddy</div>,
@@ -88,15 +98,15 @@ describe("Dashboard Component", () => {
     expect(screen.getByTestId("filters")).toBeInTheDocument();
   });
 
-  it("should render TodosList by default", () => {
+  it("should render TodosBoard by default", () => {
     renderWithStore();
-    expect(screen.getByTestId("todos-list")).toBeInTheDocument();
+    expect(screen.getByTestId("todos-board")).toBeInTheDocument();
   });
 
-  it("should switch to board view on tab click", () => {
+  it("should switch to list view on tab click", () => {
     renderWithStore();
-    fireEvent.click(screen.getByText("Board"));
-    expect(screen.getByTestId("todos-board")).toBeInTheDocument();
+    fireEvent.click(screen.getByText("List"));
+    expect(screen.getByTestId("todos-list")).toBeInTheDocument();
   });
 
   it("should open CreateTodoModal on button click", () => {

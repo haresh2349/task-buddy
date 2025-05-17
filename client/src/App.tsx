@@ -8,8 +8,8 @@ function App() {
   const { isAuthenticated } = useAppSelector((store) => store.auth);
   const { isSnackbarOpen, snackbarMessage, snackbarSeverity, showTime } =
     useAppSelector((store) => store.common);
-  console.log(isAuthenticated,"Auth")
-    return (
+  console.log(isAuthenticated, "Auth");
+  return (
     <div className="relative w-screen h-screen bg-[#FFF9F9]">
       {isAuthenticated ? <Dashboard /> : <AuthDashboard />}
       {isSnackbarOpen && (

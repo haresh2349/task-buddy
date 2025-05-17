@@ -1,4 +1,5 @@
 import { Dispatch } from "@reduxjs/toolkit";
+import { JwtPayload } from "jwt-decode";
 import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -55,4 +56,28 @@ export interface HandleSignupUserReponse {
   result: {
     id: string;
   };
+}
+
+export interface HandleLoginWithGoogleProps {
+  name: string;
+  email: string;
+  googleId: string;
+  dispatch: Dispatch;
+}
+
+export interface GoogleJWTPayload extends JwtPayload {
+  iss: string; // Issuer (accounts.google.com)
+  azp: string; // Authorized party (client ID)
+  aud: string; // Audience (client ID)
+  sub: string; // Google's unique user ID
+  email: string;
+  email_verified: boolean;
+  at_hash?: string;
+  name: string;
+  picture: string;
+  given_name: string;
+  family_name: string;
+  locale: string;
+  iat: number; // Issued at (timestamp)
+  exp: number; // Expiration time (timestamp)
 }
