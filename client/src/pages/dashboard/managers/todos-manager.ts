@@ -195,7 +195,6 @@ export const handleSubmitEditTask = async ({
       dueDate: taskDetails?.dueDate === "" ? "Due Date is required!" : "",
     });
 
-  debugger;
   if (taskDetails?.title === "" || taskDetails?.dueDate === "") {
     return;
   }

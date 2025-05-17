@@ -103,7 +103,7 @@ const Login = ({
               </p>
             </div>
           </div>
-          <div>
+          <div className="w-full">
             <GoogleLoginButton />
           </div>
           <div>

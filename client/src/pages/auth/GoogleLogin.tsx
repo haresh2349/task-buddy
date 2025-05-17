@@ -26,6 +26,7 @@ const GoogleLoginButton = () => {
         onError={errorMessage}
         logo_alignment="center"
         useOneTap
+        width={"100%"}
       />
     </GoogleOAuthProvider>
   );
