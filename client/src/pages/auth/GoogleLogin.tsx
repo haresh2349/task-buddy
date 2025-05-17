@@ -21,13 +21,15 @@ const GoogleLoginButton = () => {
 
   return (
     <GoogleOAuthProvider clientId={import.meta.env.VITE_CLIENT_ID}>
-      <GoogleLogin
-        onSuccess={responseMessage}
-        onError={errorMessage}
-        logo_alignment="center"
-        useOneTap
-        width={"100%"}
-      />
+      <div style={{ width: "100%" }}>
+        <GoogleLogin
+          onSuccess={responseMessage}
+          onError={errorMessage}
+          logo_alignment="center"
+          size="large"
+          text="signin_with"
+        />
+      </div>
     </GoogleOAuthProvider>
   );
 };
