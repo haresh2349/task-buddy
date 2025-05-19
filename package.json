@@ -7,10 +7,11 @@
   ],
   "scripts": {
     "client:dev:start": "yarn workspace client dev",
-    "build:client": "yarn workspace client build",
+    "client:build": "yarn workspace client build",
     "server:dev:start": "yarn workspace server start:dev",
     "server:test": "yarn workspace server test",
-    "client:test": "yarn workspace client test"
+    "client:test": "yarn workspace client test",
+    "server:build": "yarn workspace server build"
   },
   "packageManager": "yarn@4.9.1"
 }
