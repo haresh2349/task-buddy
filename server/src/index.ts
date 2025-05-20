@@ -12,7 +12,7 @@ app.use(
   cors({
     origin: process.env.CLIENT_URL, // Match your frontend's URL exactly
     credentials: true, // Required if using cookies/auth
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Include OPTIONS
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"], // Include OPTIONS
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
