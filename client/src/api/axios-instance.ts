@@ -2,8 +2,9 @@ import axios from "axios";
 import type { InternalAxiosRequestConfig } from "axios";
 import { getToken } from "../common-managers/common-manager";
 export const axiosInstance = axios.create({
-  baseURL: "http://taskbuddy.ap-south-1.elasticbeanstalk.com/api/v1/",
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   timeout: 30000,
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },

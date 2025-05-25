@@ -38,24 +38,6 @@ export const Filters = ({
       >
         <div className="hidden  md:flex items-center gap-4">
           <div
-            onClick={() => setActiveTab("list")}
-            className={`${
-              activeTab === "list" ? activeTab : ""
-            } flex items-center gap-2 cursor-pointer relative`}
-          >
-            <MdTableRows
-              color={`${activeTab === "list" ? "black" : "gray"}`}
-              size={"1.2rem"}
-            />
-            <p
-              className={`text-md text-${
-                activeTab === "list" ? "black-500" : "gray-500"
-              } font-bold`}
-            >
-              List{" "}
-            </p>
-          </div>
-          <div
             data-testid="tab-board"
             onClick={() => setActiveTab("board")}
             className={`${
@@ -72,6 +54,24 @@ export const Filters = ({
               } font-bold`}
             >
               Board
+            </p>
+          </div>
+          <div
+            onClick={() => setActiveTab("list")}
+            className={`${
+              activeTab === "list" ? activeTab : ""
+            } flex items-center gap-2 cursor-pointer relative`}
+          >
+            <MdTableRows
+              color={`${activeTab === "list" ? "black" : "gray"}`}
+              size={"1.2rem"}
+            />
+            <p
+              className={`text-md text-${
+                activeTab === "list" ? "black-500" : "gray-500"
+              } font-bold`}
+            >
+              List{" "}
             </p>
           </div>
         </div>

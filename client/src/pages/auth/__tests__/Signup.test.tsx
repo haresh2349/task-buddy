@@ -8,6 +8,10 @@ jest.mock("../managers/signup-manager", () => ({
   handleSubmitSignup: jest.fn(),
 }));
 
+jest.mock("../GoogleLogin", () => ({
+  default: () => <div>Sign in with Google</div>,
+}));
+
 const mockedHandleSubmitSignup =
   require("../managers/signup-manager").handleSubmitSignup;
 
@@ -31,6 +35,7 @@ describe("Signup Component", () => {
     expect(screen.getByPlaceholderText("Username")).toBeDefined();
     expect(screen.getByPlaceholderText("you@example.com")).toBeDefined();
     expect(screen.getByPlaceholderText("••••••••")).toBeDefined();
+    expect(screen.getByText("Sign in with Google")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /sign up/i })).toBeDefined();
   });
 
@@ -56,7 +61,7 @@ describe("Signup Component", () => {
 
   it('calls setShowSignup(false) when "Sign In" is clicked', () => {
     renderComponent();
-    fireEvent.click(screen.getByText(/sign in/i));
+    fireEvent.click(screen.getByText("Sign In"));
     expect(setShowSignupMock).toHaveBeenCalledWith(false);
   });
 

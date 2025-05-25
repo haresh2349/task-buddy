@@ -5,7 +5,7 @@ import { createTestUserAndGetCookies } from "./test-helper";
 import request from "supertest";
 
 const fetchTodosAPI = "/api/v1/todos";
-const createTodoAPI = "/api/v1/todos/create-todos";
+const createTodoAPI = "/api/v1/todos/create-todo";
 let cookies: string[];
 let createdTodoId: string;
 let todoIds: string[] = [];
@@ -52,7 +52,6 @@ describe("fetch Todos", () => {
     const res = await request(app)
       .get(`${fetchTodosAPI}?page=${page}&limit=${limit}`)
       .set("Cookie", cookies);
-
     expect(res.statusCode).toBe(200);
     expect(res.body.result.todos.length).toBeLessThanOrEqual(3);
     expect(res.body.result).toHaveProperty("pagination");
@@ -74,16 +73,16 @@ describe("fetch Todos", () => {
     });
 
     const res = await request(app)
-      .get(`${fetchTodosAPI}?search=${"Important"}&page=1&limit=10`)
+      .get(`${fetchTodosAPI}?search=important`)
       .set("Cookie", cookies);
-
+    // console.log(res.body, "res");
     expect(res.statusCode).toBe(200);
-    // expect(res.body.result.todos.length).toBeGreaterThan(0);
-    // res.body.result.todos.forEach((todo: Todo) => {
-    //   const inTitle = todo.title.toLowerCase().includes("important");
-    //   const inDesc = todo.description.toLowerCase().includes("important");
-    //   expect(inTitle || inDesc).toBe(true);
-    // });
+    expect(res.body.result.todos.length).toBeGreaterThan(0);
+    res.body.result.todos.forEach((todo: Todo) => {
+      const inTitle = todo.title.toLowerCase().includes("important");
+      const inDesc = todo.description.toLowerCase().includes("important");
+      expect(inTitle || inDesc).toBe(true);
+    });
   });
 
   it("should fetch a single todo by ID", async () => {

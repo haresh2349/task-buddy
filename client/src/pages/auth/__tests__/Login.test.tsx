@@ -16,6 +16,10 @@ jest.mock("../managers/login-manager", () => ({
   handleSubmitLogin: jest.fn(),
 }));
 
+jest.mock("../GoogleLogin", () => ({
+  default: () => <div>Sign in with Google</div>,
+}));
+
 describe("Login Component", () => {
   const mockSetShowSignup = jest.fn();
 
@@ -26,8 +30,9 @@ describe("Login Component", () => {
   it("renders email and password inputs", () => {
     render(<Login setShowSignup={mockSetShowSignup} />);
 
-    expect(screen.getByLabelText(/email/i)).toBeDefined();
-    expect(screen.getByLabelText(/password/i)).toBeDefined();
+    expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
+    expect(screen.getByText("Sign in with Google")).toBeInTheDocument();
   });
 
   it("triggers handleSubmitLogin on form submit", () => {

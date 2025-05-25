@@ -3,6 +3,8 @@ import { SignupFormData } from "../../types/auth-types";
 import { useAppDispatch } from "../../hooks/app.hooks";
 import { handleSubmitSignup } from "./managers/signup-manager";
 import { BeatLoader } from "react-spinners";
+import GoogleLoginButton from "./GoogleLogin";
+import Input from "../../components/ui/Input";
 const Signup = ({
   setShowSignup,
 }: {
@@ -100,7 +102,7 @@ const Signup = ({
               >
                 Password
               </label>
-              <input
+              <Input
                 id="password"
                 name="password"
                 type="password"
@@ -127,6 +129,9 @@ const Signup = ({
                 </span>{" "}
               </p>
             </div>
+          </div>
+          <div>
+            <GoogleLoginButton />
           </div>
           <div>
             <button
