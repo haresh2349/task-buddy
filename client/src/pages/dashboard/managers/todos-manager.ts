@@ -21,6 +21,12 @@ import { activateSnackbar } from "../../../store/slices/common-slice";
 interface HandleGetTodosProps {
   dispatch: Dispatch;
   searchQuery?: string;
+  sortOrder?: "asc" | "desc";
+  sortBy?: string;
+  pagination?: {
+    page: number;
+    limit: number;
+  };
 }
 
 interface CreateTodoProps {
@@ -46,11 +52,17 @@ interface HandleSubmitCreateTaskProps {
 export const handleGetTodos = async ({
   dispatch,
   searchQuery,
+  pagination = { page: 1, limit: 15 },
+  sortOrder = "asc",
+  sortBy = "createdAt",
 }: HandleGetTodosProps) => {
   try {
     dispatch(startTodosLoading());
     const response = await api.get<GetTodosResponse>(API_END_POINTS.getTodos, {
       search: searchQuery,
+      ...pagination,
+      sortOrder,
+      sortBy,
     });
     const data = response?.data?.result;
     dispatch(getTodosDetails(data));
@@ -132,7 +144,7 @@ export const createTodo = async ({
     payload.title = formData?.title;
     payload.description = formData?.description;
     payload.dueDate = formData?.dueDate;
-    payload.status = "todo";
+    payload.status = formData?.status || "todo";
     const response = await api.post<CreateTodoAPIResponse>(
       API_END_POINTS.createTodo,
       payload

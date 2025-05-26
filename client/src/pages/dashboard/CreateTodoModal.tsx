@@ -4,6 +4,7 @@ import { handleSubmitCreateTask } from "./managers/todos-manager";
 import { useAppDispatch } from "../../hooks/app.hooks";
 import { ConfirmAction } from "../../components/confirm-action/ConfirmAction";
 import { BeatLoader } from "react-spinners";
+import { STATUS_OPTIONS } from "../../constants/app.constant";
 
 interface CreateTodoModalProps {
   isOpen: boolean;
@@ -22,12 +23,14 @@ export const CreateTodoModal = ({ isOpen, onClose }: CreateTodoModalProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showConfirmationDailoag, setShowConfirmationDailog] = useState(false);
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
+  console.log(formData, "formData");
   if (!isOpen) return null;
   return (
     <>
@@ -35,7 +38,7 @@ export const CreateTodoModal = ({ isOpen, onClose }: CreateTodoModalProps) => {
         data-testid="create-todo-modal"
         className="absolute inset-0 bg-gray-500/50 flex justify-center items-center"
       >
-        <div className="rounded bg-[#FFF] z-1 w-[40%] rounded-xl shadow-[rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset]">
+        <div className="rounded bg-[#FFF] z-1 w-[80%] md:w-[40%] rounded-xl shadow-[rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset]">
           <div className="flex justify-between items-center p-4 border-b border-[#cecece]">
             <h3 className="text-lg font-semibold">Create New Task</h3>
             <button
@@ -85,6 +88,23 @@ export const CreateTodoModal = ({ isOpen, onClose }: CreateTodoModalProps) => {
             <p className="mt-1 text-sm text-red-600">{errors.description}</p>
           )} */}
               </div>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Status
+              </label>
+              <select
+                name="status"
+                onChange={handleChange}
+                className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                {STATUS_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
             </div>
 
             {/* Due Date Field */}

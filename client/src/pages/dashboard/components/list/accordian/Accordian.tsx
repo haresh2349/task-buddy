@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { TASK_STATUS_VIEWABLE_TEXT } from "../../../../../constants/app.constant";
-import { MdMoreHoriz } from "react-icons/md";
+import { MdMoreHoriz, MdOutlineDelete, MdOutlineEdit } from "react-icons/md";
 import { useAppDispatch } from "../../../../../hooks/app.hooks";
 import {
   setSelectedTodoId,
@@ -70,7 +70,7 @@ const Accordion: React.FC<AccordionProps> = ({
         </button>
 
         {isOpen && (
-          <div className="bg-[#F1F1F1] ">
+          <div className="bg-[#F1F1F1] max-h-[400px] overflow-scroll">
             {tasks?.map((task) => {
               return (
                 <div
@@ -89,14 +89,17 @@ const Accordion: React.FC<AccordionProps> = ({
                       {task?.title}
                     </p>
                   </div>
-                  <p className="w-[30%] hidden md:block font-medium">
+                  <p className="w-[25%] hidden md:block font-medium">
                     {task?.dueDate ? formatRelativeDate(task?.dueDate) : ""}
                   </p>
-                  <div className="w-[20%] hidden md:block">
+                  <div className="w-[15%] hidden md:block">
                     <button className="bg-[#DDDADD] rounded-sm py-1 px-2 text-xs font-medium">
                       {TASK_STATUS_VIEWABLE_TEXT[task.status].text}
                     </button>
                   </div>
+                  <p className="w-[20%] hidden md:block font-medium">
+                    {task?.createdAt ? formatRelativeDate(task?.createdAt) : ""}
+                  </p>
                   <div className="relative">
                     <button onClick={() => handleClickMore(task?._id || "")}>
                       <MdMoreHoriz />
@@ -107,7 +110,7 @@ const Accordion: React.FC<AccordionProps> = ({
                         className="popover absolute right-0 mt-2 w-28 bg-white border border-gray-300 shadow-lg rounded z-10"
                       >
                         <button
-                          className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
+                          className="w-full flex gap-2 items-center px-4 py-2 text-left text-sm hover:bg-gray-100"
                           onClick={() => {
                             dispatch(toggleEditTodoModal(true));
                             dispatch(setSelectedTodoId(task?._id || ""));
@@ -117,15 +120,17 @@ const Accordion: React.FC<AccordionProps> = ({
                             setActivePopover("");
                           }}
                         >
+                          <MdOutlineEdit className="mr-2 w-4 h-4" />
                           Edit
                         </button>
                         <button
-                          className="w-full px-4 py-2 text-left text-sm hover:bg-gray-100"
+                          className="w-full flex gap-2 items-center px-4 py-2 text-left text-sm text-red-600 hover:bg-gray-100"
                           onClick={() => {
                             setShowDeleteDailog(true);
                             setTaskToDelete(task?._id || "");
                           }}
                         >
+                          <MdOutlineDelete className="mr-2 w-4 h-4" />
                           Delete
                         </button>
                       </div>

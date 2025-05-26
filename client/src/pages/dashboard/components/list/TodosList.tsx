@@ -33,8 +33,9 @@ export const TodosList = () => {
         <div>
           <div className="w-full flex justify-between items-center p-2">
             <p className="w-[40%] hidden md:block font-medium">Task Name</p>
-            <p className="w-[30%] hidden md:block font-medium">Due On</p>
-            <p className="w-[20%] hidden md:block font-medium">Task Status</p>
+            <p className="w-[25%] hidden md:block font-medium">Due On</p>
+            <p className="w-[15%] hidden md:block font-medium">Task Status</p>
+            <p className="w-[20%] hidden md:block font-medium">Created At</p>
             <p className="w-[1rem]"></p>
             {/* <p></p> */}
           </div>
